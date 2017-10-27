@@ -47,7 +47,7 @@ public class Board {
                 } else if (c=='_') {
                     y++;
                 }
-                if (boardArray[x][y]!=null) {
+                if (y<8 && boardArray[x][y]!=null) {
                     y++;
                 }
             }

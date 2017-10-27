@@ -14,6 +14,11 @@ public class Testing {
         System.out.println("Hello");
     }
     public static void main(String[] args) {
-        Testing t = new Testing();
+        Board b = new Board("data/test1.chs");
+        for (int x=0;x<8;x++) {
+            for (int y=0;y<8;y++) {
+                System.out.println(b.boardArray[x][y]);
+            }
+        }
     }
 }
