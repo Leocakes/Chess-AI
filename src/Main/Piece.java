@@ -24,5 +24,9 @@ public abstract class Piece implements Runnable {
         this.board=board;
     }
     
+    Boolean isValid(int x, int y) { //Checks if a certain move is valid
+        
+    }
+    
     public abstract List<Integer[]> Collect(); //Returns a list of coordinates the piece can go to
 }
