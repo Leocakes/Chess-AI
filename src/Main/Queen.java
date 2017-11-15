@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class Queen extends Piece {
     public Queen (int x, int y,Boolean side, Board board) {
-        super(x,y,side,board);
+        super(side,board);
     }
     public List<Integer[]> Collect() {
         List<Integer[]> list = new LinkedList<Integer[]>();

@@ -13,7 +13,7 @@ import java.io.*;
  */
 public class Board {
 
-    Piece[][] boardArray;
+    public Piece[][] boardArray;
 
     public Board(String file) {
         boardArray = new Piece[8][8];
