@@ -1,29 +1,42 @@
 package Main;
 
+import java.awt.Point;
 import java.util.*;
+import java.util.stream.Collectors;
+import javax.swing.text.Position;
 
 /**
  *
  * @author brock
  */
 public abstract class Piece implements Runnable {
-    private Boolean side; //Which side of the board is the piece on
+    private Side side; //Which side of the board is the piece on
     private Board board;
+    public Point currentPosition;
+    public List<Point> moves; //after you call run this value will have the next possible moves
+    //Note, the responsibity for checking if a move is possible is on the piece not board
     
-    public Piece(Boolean side, Board board) {
+    public Piece(Point p,Side side, Board board) {
+        this.currentPosition = p;
         this.side=side;
         this.board=board;
     }
     
-    Boolean isValid(int x, int y) { //Checks if a certain move is valid
+    List<Point> filterPositions(List<Point> positions) {
+        return positions.stream().filter(x -> isValid(x)).collect(Collectors.toList()); 
+    }
+    
+    private Boolean isValid(Point p) { //Checks if a certain move is valid
+        int x = p.x;
+        int y = p.y;
         if (x < 0 || x > 7 || y < 0 || y > 7) {
             return false;
-        } else if(board.boardArray[x][y]==null || board.boardArray[x][y].side==this.side) {
+        } else if(board.getPiece(new Point(x,y),this.side)==null || board.getPiece(new Point(x,y), this.side).side==this.side) {
             return true;
         } else {
             return false;
         }
     }
     
-    public abstract List<Integer[]> Collect(); //Returns a list of coordinates the piece can go to
+    abstract public void run();
 }

@@ -5,6 +5,7 @@
  */
 package Main;
 
+import java.awt.Point;
 import java.util.*;
 
 /**
@@ -12,14 +13,17 @@ import java.util.*;
  * @author brock
  */
 public class Pawn extends Piece {
-    public Pawn (int x, int y,Boolean side, Board board) {
-        super(side,board);
+    
+    public Pawn (int x, int y,Side side, Board board) {
+        super(new Point(x,y),side,board);
     }
-    public List<Integer[]> Collect() {
-        List<Integer[]> list = new LinkedList<Integer[]>();
-        return list;
-    }
+    
     public void run() {
-        System.out.println("Run");
+        List<Point> possibleMoves = new LinkedList<Point>();
+        possibleMoves.add(new Point(0,1));
+        if (currentPosition.y!=1) {
+            possibleMoves.add(new Point(0,2));
+        }
+        moves = this.filterPositions(possibleMoves);
     }
 }

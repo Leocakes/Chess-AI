@@ -5,6 +5,8 @@
  */
 package Main;
 
+import java.awt.Point;
+
 /**
  *
  * @author brock
@@ -15,10 +17,8 @@ public class Testing {
     }
     public static void main(String[] args) {
         Board b = new Board("data/test1.chs");
-        for (int x=0;x<8;x++) {
-            for (int y=0;y<8;y++) {
-                System.out.println(b.boardArray[x][y]);
-            }
-        }
+        System.out.println(b.pieceList.size());
+        b.pieceList.get(0).run();
+        System.out.println(b.pieceList.get(0).moves);
     }
 }

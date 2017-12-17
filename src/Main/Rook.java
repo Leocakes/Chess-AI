@@ -5,6 +5,7 @@
  */
 package Main;
 
+import java.awt.Point;
 import java.util.*;
 
 /**
@@ -12,13 +13,17 @@ import java.util.*;
  * @author brock
  */
 public class Rook extends Piece {
-    public Rook (int x, int y,Boolean side, Board board) {
-        super(side,board);
+
+    public Rook(int x, int y, Side side, Board board) {
+        super(new Point(x,y),side, board);
     }
-    public List<Integer[]> Collect() {
-        List<Integer[]> list = new LinkedList<Integer[]>();
+
+    public List<Point> Collect() {
+        List<Point> list = new LinkedList<Point>();
+
         return list;
     }
+
     public void run() {
         System.out.println("Run");
     }
