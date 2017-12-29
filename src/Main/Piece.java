@@ -5,10 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import javax.swing.text.Position;
 
-/**
- *
- * @author brock
- */
+
 public abstract class Piece implements Runnable {
 
     Side side; //Which side of the board is the piece on
