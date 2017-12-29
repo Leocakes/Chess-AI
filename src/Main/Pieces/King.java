@@ -1,5 +1,8 @@
-package Main;
+package Main.Pieces;
 
+import Main.Board;
+import Main.Move;
+import Main.Pieces.Piece;
 import java.awt.Point;
 import java.util.*;
 

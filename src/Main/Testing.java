@@ -16,5 +16,6 @@ public class Testing {
         b.pieceList.get(0).run();
         System.out.println(b.pieceList.get(0).moves);
         b.Print();
+        System.out.println(b.heuristic());
     }
 }

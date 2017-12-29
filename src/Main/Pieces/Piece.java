@@ -1,5 +1,7 @@
-package Main;
+package Main.Pieces;
 
+import Main.Board;
+import Main.Move;
 import java.awt.Point;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -8,16 +10,18 @@ import javax.swing.text.Position;
 
 public abstract class Piece implements Runnable {
 
-    Side side; //Which side of the board is the piece on
+    public Side side; //Which side of the board is the piece on
     private Board board;
     public Point currentPosition;
     public List<Move> moves; //after you call run this value will have the next possible moves
     //Note, the responsibity for checking if a move is possible is on the piece not board
+    public Boolean alive;
 
     public Piece(Point p, Side side, Board board) {
         this.currentPosition = p;
         this.side = side;
         this.board = board;
+        alive=true;
     }
 
     List<Move> filterPositions(List<Move> positions) {

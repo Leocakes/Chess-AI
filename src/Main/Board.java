@@ -1,5 +1,22 @@
 package Main;
 
+import Main.Move;
+import Main.Pieces.Bishop;
+import Main.Pieces.Bishop;
+import Main.Pieces.King;
+import Main.Pieces.King;
+import Main.Pieces.Knight;
+import Main.Pieces.Knight;
+import Main.Pieces.Pawn;
+import Main.Pieces.Pawn;
+import Main.Pieces.Piece;
+import Main.Pieces.Piece;
+import Main.Pieces.Piece;
+import Main.Pieces.Queen;
+import Main.Pieces.Queen;
+import Main.Pieces.Rook;
+import Main.Pieces.Rook;
+import Main.Pieces.Side;
 import java.awt.Point;
 import java.io.*;
 import java.util.Collections;
@@ -67,6 +84,33 @@ public class Board {
             }
         }
         pieceList.removeAll(Collections.singleton(null)); //Removes all nulls from list
+    }
+    
+    public Double heuristic() { //Returns a score for this board, higher = better for white
+        Double score = 0.0;
+        for(Piece p : pieceList) {
+            if(p.side.equals(Side.White)) {
+                score++;
+            } else {
+                score--;
+            }
+        }
+        return score;
+    }
+    
+    public void doMove(Move move) {
+        int origx = move.piece.currentPosition.x;
+        int origy = move.piece.currentPosition.y;
+        int newx = move.move.x;
+        int newy = move.move.y;
+        int delx = move.delete.x;
+        int dely = move.delete.y;
+        if(boardArray[delx][dely]!=null) {
+            pieceList.remove(boardArray[delx][dely]);
+        }
+        boardArray[delx][dely]=null;
+        boardArray[newx][newy]=boardArray[origx][origy];
+        
     }
     
     public void Print() {

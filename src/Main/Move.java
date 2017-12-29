@@ -1,5 +1,6 @@
 package Main;
 
+import Main.Pieces.Piece;
 import java.awt.Point;
 
 /**
