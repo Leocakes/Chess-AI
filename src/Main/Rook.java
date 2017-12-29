@@ -25,6 +25,11 @@ public class Rook extends Piece {
     }
 
     public void run() {
-
+        List<Move> possibleMoves = new LinkedList<Move>();
+        Point[] increment = new Point[]{new Point(0, 1),
+            new Point(1, 0), new Point(0, -1), 
+            new Point(-1, 0)};
+        List<Point> incrementList = new LinkedList(Arrays.asList(increment));
+        moves = checkLines(incrementList);
     }
 }
