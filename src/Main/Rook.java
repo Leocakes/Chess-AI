@@ -15,7 +15,7 @@ import java.util.*;
 public class Rook extends Piece {
 
     public Rook(int x, int y, Side side, Board board) {
-        super(new Point(x,y),side, board);
+        super(new Point(x, y), side, board);
     }
 
     public List<Point> Collect() {
@@ -25,6 +25,6 @@ public class Rook extends Piece {
     }
 
     public void run() {
-        System.out.println("Run");
+
     }
 }

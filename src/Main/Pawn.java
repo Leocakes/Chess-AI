@@ -14,16 +14,22 @@ import java.util.*;
  */
 public class Pawn extends Piece {
     
+    Boolean moved;
+    Boolean en_passent; //True if it's possible to be taken by en passent
+    
     public Pawn (int x, int y,Side side, Board board) {
         super(new Point(x,y),side,board);
+        moved=false;
+        en_passent = false;
     }
     
     public void run() {
-        List<Point> possibleMoves = new LinkedList<Point>();
-        possibleMoves.add(new Point(0,1));
-        if (currentPosition.y!=1) {
-            possibleMoves.add(new Point(0,2));
+        List<Move> possibleMoves = new LinkedList<Move>();
+        possibleMoves.add(new Move(this,0,1));
+        if (!moved) {
+            possibleMoves.add(new Move(this,0,2));
         }
+        moved = true;
         moves = this.filterPositions(possibleMoves);
     }
 }
