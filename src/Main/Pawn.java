@@ -32,4 +32,8 @@ public class Pawn extends Piece {
         moved = true;
         moves = this.filterPositions(possibleMoves);
     }
+    
+    public String print() {
+        return side.equals(Side.White)?"P":"p";
+    }
 }

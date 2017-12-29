@@ -20,5 +20,6 @@ public class Testing {
         System.out.println(b.pieceList.size());
         b.pieceList.get(0).run();
         System.out.println(b.pieceList.get(0).moves);
+        b.Print();
     }
 }

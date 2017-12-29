@@ -11,7 +11,7 @@ import javax.swing.text.Position;
  */
 public abstract class Piece implements Runnable {
 
-    private Side side; //Which side of the board is the piece on
+    Side side; //Which side of the board is the piece on
     private Board board;
     public Point currentPosition;
     public List<Move> moves; //after you call run this value will have the next possible moves
@@ -55,6 +55,8 @@ public abstract class Piece implements Runnable {
         }
         return possibleMoves;
     }
+    
+    abstract public String print();
 
     abstract public void run();
 }

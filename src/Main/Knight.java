@@ -35,4 +35,8 @@ public class Knight extends Piece {
         possibleMoves.add(new Move(this, new Point(2, 1)));
         moves = filterPositions(possibleMoves);
     }
+
+    public String print() {
+        return side.equals(Side.White) ? "N" : "n";
+    }
 }

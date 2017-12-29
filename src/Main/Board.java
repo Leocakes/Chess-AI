@@ -73,4 +73,18 @@ public class Board {
         }
         pieceList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
+    
+    public void Print() {
+        for (int x=0;x<8;x++) {
+            for (int y=0;y<8;y++) {
+                if (boardArray[x][y]==null) {
+                    System.out.print(".");
+                } else {
+                    System.out.print(boardArray[x][y].print());
+                }
+            }
+            System.out.println();
+        }
+    }
+    
 }

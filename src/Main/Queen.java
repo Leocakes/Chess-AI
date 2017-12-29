@@ -30,4 +30,8 @@ public class Queen extends Piece {
         List<Point> incrementList = new LinkedList(Arrays.asList(increment));
         moves = checkLines(incrementList);
     }
+    
+        public String print() {
+        return side.equals(Side.White)?"Q":"q";
+    }
 }

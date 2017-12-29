@@ -35,4 +35,8 @@ public class King extends Piece {
         possibleMoves.add(new Move(this, new Point(1, 1)));
         moves = filterPositions(possibleMoves);
     }
+    
+        public String print() {
+        return side.equals(Side.White)?"K":"k";
+    }
 }
