@@ -15,15 +15,11 @@ import java.util.List;
  */
 public class Board {
 
-    private Piece[][] boardArray;
+    public Piece[][] boardArray;
     
     public List<Piece> pieceList;
     
     public Double score;
-    
-    public Piece getPiece(Point point) { 
-        return boardArray[point.x][point.y];
-    }
 
     public Board(String file) {
         pieceList = new LinkedList<Piece>();
