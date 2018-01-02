@@ -12,10 +12,12 @@ public class Testing {
     }
     public static void main(String[] args) {
         Board b = new Board("data/test1.chs");
-        System.out.println(b.pieceList.size());
-        b.pieceList.get(0).run();
-        System.out.println(b.pieceList.get(0).moves);
         b.Print();
-        System.out.println(b.heuristic());
+        System.out.println(b.pieceList.size());
+        b.pieceList.get(4).run();
+        for (Move m : b.pieceList.get(4).moves) {
+            System.out.println(m.move);
+        }
+        
     }
 }

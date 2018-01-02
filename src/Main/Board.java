@@ -1,22 +1,7 @@
 package Main;
 
 import Main.Move;
-import Main.Pieces.Bishop;
-import Main.Pieces.Bishop;
-import Main.Pieces.King;
-import Main.Pieces.King;
-import Main.Pieces.Knight;
-import Main.Pieces.Knight;
-import Main.Pieces.Pawn;
-import Main.Pieces.Pawn;
-import Main.Pieces.Piece;
-import Main.Pieces.Piece;
-import Main.Pieces.Piece;
-import Main.Pieces.Queen;
-import Main.Pieces.Queen;
-import Main.Pieces.Rook;
-import Main.Pieces.Rook;
-import Main.Pieces.Side;
+import Main.Pieces.*;
 import java.awt.Point;
 import java.io.*;
 import java.util.Collections;
@@ -33,13 +18,11 @@ public class Board {
     private Piece[][] boardArray;
     
     public List<Piece> pieceList;
-
-    public Piece getPiece(Point p, Side side) {
-        if (side.equals(Side.Black)) {
-            return boardArray[p.x][7 - p.y];
-        } else {
-            return boardArray[p.x][p.y];
-        }
+    
+    public Double score;
+    
+    public Piece getPiece(Point point) { 
+        return boardArray[point.x][point.y];
     }
 
     public Board(String file) {
@@ -52,8 +35,8 @@ public class Board {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8;) {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8;) {
                 int c = -1;
                 try {
                     c = reader.read();
@@ -76,17 +59,17 @@ public class Board {
                     }
                     pieceList.add(boardArray[x][y]);
                 } else if(c == '_') {
-                    y++;
+                    x++;
                 }
-                if (y < 8 && boardArray[x][y] != null) {
-                    y++;
+                if (x < 8 && boardArray[x][y] != null) {
+                    x++;
                 }
             }
         }
         pieceList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
     
-    public Double heuristic() { //Returns a score for this board, higher = better for white
+    public void heuristic() { //Calculates a score for this board, higher = better for white
         Double score = 0.0;
         for(Piece p : pieceList) {
             if(p.side.equals(Side.White)) {
@@ -95,12 +78,12 @@ public class Board {
                 score--;
             }
         }
-        return score;
+        this.score = score;
     }
     
     public void doMove(Move move) {
-        int origx = move.piece.currentPosition.x;
-        int origy = move.piece.currentPosition.y;
+        int origx = move.piece.pos.x;
+        int origy = move.piece.pos.y;
         int newx = move.move.x;
         int newy = move.move.y;
         int delx = move.delete.x;
@@ -114,8 +97,8 @@ public class Board {
     }
     
     public void Print() {
-        for (int x=0;x<8;x++) {
-            for (int y=0;y<8;y++) {
+        for (int y=0;y<8;y++) {
+            for (int x=0;x<8;x++) {
                 if (boardArray[x][y]==null) {
                     System.out.print(".");
                 } else {
