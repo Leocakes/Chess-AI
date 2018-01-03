@@ -13,10 +13,11 @@ public class Testing {
     public static void main(String[] args) {
         Board b = new Board("data/test1.chs");
         b.Print();
-        System.out.println(b.pieceList.size());
-        b.pieceList.get(4).run();
-        for (Move m : b.pieceList.get(4).moves) {
-            System.out.println(m.move);
+        b.aliveList.get(4).run();
+        for (Move m : b.aliveList.get(4).moves) {
+            Board newB = b.copy();
+            newB.doMove(m);
+            newB.Print();
         }
         
     }

@@ -4,26 +4,37 @@ import Main.Move;
 import Main.Pieces.*;
 import java.awt.Point;
 import java.io.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  *
  * @author brock
  */
-public class Board {
+public class Board implements Cloneable {
 
     public Piece[][] boardArray;
-    
-    public List<Piece> pieceList;
-    
+
+    public List<Piece> aliveList;
+
     public Double score;
 
+    public Stack<Move> moveStack;
+
+    public Stack<Piece> deleteStack;
+
+    public Board copy() {
+        try {
+            return (Board) this.clone();
+        } catch (Exception CloneNotSupported) {
+            return null;
+        }
+    }
+
     public Board(String file) {
-        pieceList = new LinkedList<Piece>();
+        aliveList = new LinkedList<Piece>();
         boardArray = new Piece[8][8];
+        moveStack = new Stack();
+        deleteStack = new Stack();
         Reader reader = null;
         try {
             InputStream in = new FileInputStream(file);
@@ -53,8 +64,8 @@ public class Board {
                     } else if (c == 'N' || c == 'n') {
                         boardArray[x][y] = new Knight(x, y, c == 'N' ? Side.White : Side.Black, this);
                     }
-                    pieceList.add(boardArray[x][y]);
-                } else if(c == '_') {
+                    aliveList.add(boardArray[x][y]);
+                } else if (c == '_') {
                     x++;
                 }
                 if (x < 8 && boardArray[x][y] != null) {
@@ -62,13 +73,13 @@ public class Board {
                 }
             }
         }
-        pieceList.removeAll(Collections.singleton(null)); //Removes all nulls from list
+        aliveList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
-    
+
     public void heuristic() { //Calculates a score for this board, higher = better for white
         Double score = 0.0;
-        for(Piece p : pieceList) {
-            if(p.side.equals(Side.White)) {
+        for (Piece p : aliveList) {
+            if (p.side.equals(Side.White)) {
                 score++;
             } else {
                 score--;
@@ -76,26 +87,36 @@ public class Board {
         }
         this.score = score;
     }
-    
+
     public void doMove(Move move) {
+        moveStack.push(move);
         int origx = move.piece.pos.x;
         int origy = move.piece.pos.y;
-        int newx = move.move.x;
-        int newy = move.move.y;
-        int delx = move.delete.x;
-        int dely = move.delete.y;
-        if(boardArray[delx][dely]!=null) {
-            pieceList.remove(boardArray[delx][dely]);
+        int newx = move.move.x + origx;
+        int newy = move.move.y + origy;
+        int delx = move.delete.x + origx;
+        int dely = move.delete.y + origy;
+        deleteStack.push(boardArray[delx][dely]);
+        if (boardArray[delx][dely] != null) {
+            aliveList.remove(boardArray[delx][dely]);
         }
-        boardArray[delx][dely]=null;
-        boardArray[newx][newy]=boardArray[origx][origy];
-        
+
+        boardArray[delx][dely] = null;
+        boardArray[newx][newy] = boardArray[origx][origy];
+
     }
-    
+
+    public void revertMove() {
+        Move move = moveStack.pop();
+        Piece del = deleteStack.pop();
+        boardArray[move.delete.x][move.delete.y]=del;
+        boardArray[move.move.x][move.move.y]=move.piece;
+    }
+
     public void Print() {
-        for (int y=0;y<8;y++) {
-            for (int x=0;x<8;x++) {
-                if (boardArray[x][y]==null) {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (boardArray[x][y] == null) {
                     System.out.print(".");
                 } else {
                     System.out.print(boardArray[x][y].print());

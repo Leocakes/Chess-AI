@@ -19,7 +19,7 @@ public class NextMove {
         if(tree.depth >= maxDepth) {
             tree.el.heuristic();
         } else {
-
+            
         }
     }
     
