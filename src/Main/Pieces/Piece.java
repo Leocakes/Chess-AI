@@ -5,7 +5,6 @@ import Main.Move;
 import java.awt.Point;
 import java.util.*;
 import java.util.stream.Collectors;
-import javax.swing.text.Position;
 
 public abstract class Piece implements Runnable {
 

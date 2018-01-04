@@ -116,6 +116,10 @@ public class Board implements Cloneable {
         boardArray[x][y] = move.piece;
         move.piece.pos = new Point(x,y);
     }
+    
+    public List<Move> fetchMoves(Side side) {
+        aliveList.stream().filter(m -> m.side == side).reduce(new LinkedList(),);
+    }
 
     public void Print() {
         for (int y = 0; y < 8; y++) {
