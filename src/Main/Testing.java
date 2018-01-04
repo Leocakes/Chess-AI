@@ -12,12 +12,14 @@ public class Testing {
     }
     public static void main(String[] args) {
         Board b = new Board("data/test1.chs");
-        b.Print();
         b.aliveList.get(4).run();
         for (Move m : b.aliveList.get(4).moves) {
-            Board newB = b.copy();
-            newB.doMove(m);
-            newB.Print();
+            b.doMove(m);
+            b.Print();
+            System.out.println();
+            b.revertMove();
+            b.Print();
+            System.out.println("--------");
         }
         
     }

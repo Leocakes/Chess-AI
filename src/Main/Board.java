@@ -103,14 +103,18 @@ public class Board implements Cloneable {
 
         boardArray[delx][dely] = null;
         boardArray[newx][newy] = boardArray[origx][origy];
-
+        boardArray[origx][origy] = null;
+        boardArray[newx][newy].pos = new Point(newx,newy);
     }
 
     public void revertMove() {
         Move move = moveStack.pop();
         Piece del = deleteStack.pop();
-        boardArray[move.delete.x][move.delete.y]=del;
-        boardArray[move.move.x][move.move.y]=move.piece;
+        boardArray[del.pos.x][del.pos.y] = del;
+        int x = move.piece.pos.x - move.move.x;
+        int y = move.piece.pos.y - move.move.y;
+        boardArray[x][y] = move.piece;
+        move.piece.pos = new Point(x,y);
     }
 
     public void Print() {
