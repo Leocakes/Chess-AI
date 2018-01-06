@@ -5,6 +5,8 @@ import Main.Pieces.*;
 import java.awt.Point;
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -18,9 +20,7 @@ public class Board implements Cloneable {
 
     public Double score;
 
-    public Stack<Move> moveStack;
-
-    public Stack<Piece> deleteStack;
+    public Stack<Revert> revertStack;
 
     public Board copy() {
         try {
@@ -33,8 +33,7 @@ public class Board implements Cloneable {
     public Board(String file) {
         aliveList = new LinkedList<Piece>();
         boardArray = new Piece[8][8];
-        moveStack = new Stack();
-        deleteStack = new Stack();
+        revertStack = new Stack();
         Reader reader = null;
         try {
             InputStream in = new FileInputStream(file);
@@ -76,7 +75,7 @@ public class Board implements Cloneable {
         aliveList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
 
-    public void heuristic() { //Calculates a score for this board, higher = better for white
+    public Double heuristic() { //Calculates a score for this board, higher = better for white
         Double score = 0.0;
         for (Piece p : aliveList) {
             if (p.side.equals(Side.White)) {
@@ -85,40 +84,55 @@ public class Board implements Cloneable {
                 score--;
             }
         }
-        this.score = score;
+        return score;
     }
 
     public void doMove(Move move) {
-        moveStack.push(move);
+        int mod = move.piece.side == Side.Black ? -1 : 1;
         int origx = move.piece.pos.x;
         int origy = move.piece.pos.y;
         int newx = move.move.x + origx;
-        int newy = move.move.y + origy;
+        int newy = (mod * move.move.y) + origy;
         int delx = move.delete.x + origx;
-        int dely = move.delete.y + origy;
-        deleteStack.push(boardArray[delx][dely]);
+        int dely = (mod * move.delete.y) + origy;
+        if (delx > 7 | dely > 7 | delx < 0 | dely < 0) {
+            System.out.println("Oops");
+        }
         if (boardArray[delx][dely] != null) {
             aliveList.remove(boardArray[delx][dely]);
         }
-
+        revertStack.add(new Revert(new Point(origx, origy),
+                boardArray[origx][origy],
+                new Point(delx, dely),
+                boardArray[delx][dely],
+                new Point(newx, newy)));
         boardArray[delx][dely] = null;
         boardArray[newx][newy] = boardArray[origx][origy];
         boardArray[origx][origy] = null;
-        boardArray[newx][newy].pos = new Point(newx,newy);
+        boardArray[newx][newy].pos = new Point(newx, newy);
     }
 
     public void revertMove() {
-        Move move = moveStack.pop();
-        Piece del = deleteStack.pop();
-        boardArray[del.pos.x][del.pos.y] = del;
-        int x = move.piece.pos.x - move.move.x;
-        int y = move.piece.pos.y - move.move.y;
-        boardArray[x][y] = move.piece;
-        move.piece.pos = new Point(x,y);
+        Revert rev = revertStack.pop();
+        rev.piece.pos = rev.piecePos;
+        if (rev.del != null) {
+            rev.del.pos = rev.delPos;
+            aliveList.add(rev.del);
+        }
+        boardArray[rev.piecePos.x][rev.piecePos.y] = rev.piece;
+        boardArray[rev.newPos.x][rev.newPos.y] = null;
+        boardArray[rev.delPos.x][rev.delPos.y] = rev.del;
     }
-    
+
     public List<Move> fetchMoves(Side side) {
-        aliveList.stream().filter(m -> m.side == side).reduce(new LinkedList(),);
+        List<Move> result = new LinkedList();
+        for (Piece p : aliveList) {
+            if (p.side == side) {
+                p.run();
+                result.addAll(p.moves);
+            }
+        }
+        return result;
     }
 
     public void Print() {
@@ -132,5 +146,6 @@ public class Board implements Cloneable {
             }
             System.out.println();
         }
+        System.out.println();
     }
 }

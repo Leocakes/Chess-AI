@@ -63,6 +63,7 @@ public abstract class Piece implements Runnable {
                 try {
                     Piece piece = getPiece(nextP);
                     if (piece==null) {
+                        
                         possibleMoves.add(new Move(this, nextP));
                     }
                     else if (!piece.side.equals(this.side)) {

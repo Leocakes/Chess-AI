@@ -1,5 +1,6 @@
 package Main;
 
+import Main.Pieces.Side;
 import java.awt.Point;
 
 /**
@@ -7,10 +8,17 @@ import java.awt.Point;
  * @author brock
  */
 public class Testing {
+
     public Testing() {
-        System.out.println("Hello");
+        test2();
     }
+
     public static void main(String[] args) {
+        Testing t = new Testing();
+
+    }
+
+    public void test1() {
         Board b = new Board("data/test1.chs");
         b.aliveList.get(4).run();
         for (Move m : b.aliveList.get(4).moves) {
@@ -21,6 +29,11 @@ public class Testing {
             b.Print();
             System.out.println("--------");
         }
-        
+    }
+    
+    public void test2() {
+        Board b = new Board("data/test2.chs");
+        Tree t = new Tree(b);
+        System.out.println(t.getNext().move);
     }
 }
