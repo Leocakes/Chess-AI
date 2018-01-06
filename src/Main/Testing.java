@@ -33,7 +33,7 @@ public class Testing {
     
     public void test2() {
         Board b = new Board("data/test2.chs");
-        Tree t = new Tree(b);
+        Tree t = new Tree(b,true);
         System.out.println(t.getNext().move);
     }
 }

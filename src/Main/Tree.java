@@ -16,9 +16,10 @@ public class Tree {
     Move move;
     Double v;
     public static int maxDepth = 3;
+    Boolean max;
 
-    public Tree(Board board) {
-        this(board, null, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+    public Tree(Board board, Boolean max) {
+        this(board, null, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,max);
     }
     
     public Move getNext() {
@@ -33,23 +34,23 @@ public class Tree {
         return m;
     }
 
-    public Tree(Board board, Move move, int depth, Double alpha, Double beta) {
+    public Tree(Board board, Move move, int depth, Double alpha, Double beta,Boolean max) {
         this.alpha = alpha;
         this.beta = beta;
         this.move = move;
         this.depth = depth;
+        this.max = max;
         if (move != null) {
             board.doMove(move);
             board.Print();
         }
         children = new LinkedList();
-        Boolean max = depth % 2 == 1;
         this.v = max ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
         if (depth >= maxDepth) {
             this.v = board.heuristic();
         } else {
             for (Move m : board.fetchMoves(max ? Side.White : Side.Black)) {
-                Tree t = new Tree(board, m, depth+1, alpha, beta);
+                Tree t = new Tree(board, m, depth+1, alpha, beta,!max);
                 children.add(t);
                 if (!max ^ v < t.v) {
                     this.v = t.v;
