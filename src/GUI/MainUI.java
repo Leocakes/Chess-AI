@@ -1,5 +1,8 @@
 package GUI;
 
+import Main.Board;
+import Main.Move;
+import Main.Pieces.Piece;
 import java.util.Scanner;
 
 /**
@@ -24,6 +27,7 @@ public class MainUI {
             System.out.println("Please provide us a command:");
             input = scan.next();
             String [] args = input.split(" ");
+            Board board = null;
             switch (args[0]){
                 case "help": //shows help
                     helpUI();
@@ -33,16 +37,29 @@ public class MainUI {
                     // add call to change difficulty
                     break;
                 case "new": //starts a new game
-                    // stars a new game
+                    board = new Board("board.chs");
                     break;
                 case "load":
+                    board = new Board(args[1]);
                     // loads 
                     break;
                 case "save":
-                    
+                    if (board != null){
+                        board.saveGame(args[1] + ".chs");
+                    } else {
+                        System.out.println("Cannot save a non-existing game.");
+                    }
                     break;
                 case "move":
-                    
+                    if (board != null){
+                        String []oldpos = args[1].split("");
+                        Piece currentPiece = board.boardArray[Integer.getInteger(oldpos[0])][getPosition(oldpos[1])];
+                        String []newpos = args[2].split("");
+                        currentPiece.run();
+                        //todo: call function to activate moves
+                    } else {
+                        System.out.println("Please start a game.");
+                    }
                     break;
                 case "exit":
                     System.out.println("Are you sure you wish to exit? (y for yes)");
@@ -58,6 +75,29 @@ public class MainUI {
         }
         
     
+    }
+     
+    public int getPosition(String letter){
+        switch(letter){
+            case "a":
+                return 0;
+            case "b":
+                return 1;
+            case "c":
+                return 2;
+            case "d":
+                return 3;
+            case "e":
+                return 4;
+            case "f":
+                return 5;
+            case "g":
+                return 6;
+            case "h":
+                return 7;
+        }
+        System.out.println("Please provide a proper position.");
+        return 10;
     }
     
     public void helpUI(){
