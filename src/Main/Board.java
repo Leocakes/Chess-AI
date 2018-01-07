@@ -136,7 +136,7 @@ public class Board implements Cloneable {
     
     
         
-    public void saveGame(Piece[][] boardArray, String filename){
+    public void saveGame(String filename){
         File file = new File("data/" + filename + ".chs");
         FileWriter writer;
         try{
