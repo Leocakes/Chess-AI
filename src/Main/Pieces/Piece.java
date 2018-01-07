@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class Piece implements Runnable {
-
+    public Double points;
     public Side side; //Which side of the board is the piece on
     private Board board;
     public Point pos;
