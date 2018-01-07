@@ -14,7 +14,7 @@ public class King extends Piece {
     
     public King(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
-        points = 90.0; 
+        points = Double.MAX_VALUE;
     }
 
     public List<Point> Collect() {

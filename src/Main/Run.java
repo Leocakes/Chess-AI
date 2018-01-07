@@ -15,6 +15,7 @@ public class Run {
             Tree t = new Tree(b,max);
             b.doMove(t.getNext());
             b.Print();
+            
             max = !max;
         }
     }
