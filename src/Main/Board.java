@@ -63,13 +63,13 @@ public class Board implements Cloneable {
         aliveList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
 
-    public Double heuristic() { //Calculates a score for this board, higher = better for white
+    public Double heuristic() { //Calculates a score for this board, higher = better for white    
         Double score = 0.0;
         for (Piece p : aliveList) {
-            if (p.side.equals(Side.White)) {
-                score++;
+            if (p.side == Side.White){
+                score += p.points;
             } else {
-                score--;
+                score -= p.points;
             }
         }
         return score;

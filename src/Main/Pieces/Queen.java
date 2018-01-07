@@ -10,6 +10,7 @@ import java.util.*;
  * @author brock
  */
 public class Queen extends Piece {
+    public Double points = 900.0;
 
     public Queen(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);

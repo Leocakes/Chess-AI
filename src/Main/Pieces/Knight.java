@@ -11,6 +11,7 @@ import java.util.*;
  * @author brock
  */
 public class Knight extends Piece {
+    public Double points = 30.0;
 
     public Knight(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
