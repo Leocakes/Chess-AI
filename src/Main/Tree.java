@@ -15,7 +15,7 @@ public class Tree {
     int depth;
     Move move;
     Double v;
-    public static int maxDepth = 1;
+    public static int maxDepth = 3;
     Boolean max;
 
     public Tree(Board board, Boolean max) {
@@ -23,10 +23,13 @@ public class Tree {
     }
     
     public Move getNext() {
-        Double highscore = Double.NEGATIVE_INFINITY;
+        Double highscore = max?Double.NEGATIVE_INFINITY:Double.POSITIVE_INFINITY;
         Move m = null;
         for(Tree t : children) {
-            if (t.v>=highscore) {
+            if (max & t.v>=highscore) {
+                highscore = t.v;
+                m = t.move;
+            } else if (!max & t.v<=highscore) {
                 highscore = t.v;
                 m = t.move;
             }
@@ -49,10 +52,12 @@ public class Tree {
             this.v = board.heuristic();
         } else {
             for (Move m : board.fetchMoves(max ? Side.White : Side.Black)) {
-                //Tree t = new Tree(board, m, depth+1, max?v:alpha, !max?v:beta,!max);
-                Tree t = new Tree(board, m, depth+1, alpha, beta,!max);
+                Tree t = new Tree(board, m, depth+1, max?v:alpha, !max?v:beta,!max);
+                //Tree t = new Tree(board, m, depth+1, alpha, beta,!max);
                 children.add(t);
-                if (!max ^ v < t.v) {
+                if (max & v < t.v) {
+                    this.v = t.v;
+                } else if (!max & v > t.v) {
                     this.v = t.v;
                 }
                 if (max & this.v > beta) { //Check if we can skip children
