@@ -32,8 +32,8 @@ public class Testing {
     }
     
     public void test2() {
-        Board b = new Board("data/board.chs");
-        Tree t = new Tree(b,true);
+        Board b = new Board("data/test2.chs");
+        Tree t = new Tree(b,false);
         b.doMove(t.getNext());
         b.Print();
         

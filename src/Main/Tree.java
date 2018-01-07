@@ -15,7 +15,7 @@ public class Tree {
     int depth;
     Move move;
     Double v;
-    public static int maxDepth = 5;
+    public static int maxDepth = 1;
     Boolean max;
 
     public Tree(Board board, Boolean max) {
@@ -49,7 +49,8 @@ public class Tree {
             this.v = board.heuristic();
         } else {
             for (Move m : board.fetchMoves(max ? Side.White : Side.Black)) {
-                Tree t = new Tree(board, m, depth+1, max?v:alpha, !max?v:beta,!max);
+                //Tree t = new Tree(board, m, depth+1, max?v:alpha, !max?v:beta,!max);
+                Tree t = new Tree(board, m, depth+1, alpha, beta,!max);
                 children.add(t);
                 if (!max ^ v < t.v) {
                     this.v = t.v;

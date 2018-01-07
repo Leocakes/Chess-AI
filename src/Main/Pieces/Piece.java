@@ -4,7 +4,6 @@ import Main.Board;
 import Main.Move;
 import java.awt.Point;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class Piece implements Runnable {
     public Double points;
@@ -37,9 +36,15 @@ public abstract class Piece implements Runnable {
         }
         return board.boardArray[x][y];
     }
-
+    
     List<Move> filterPositions(List<Move> positions) {
-        return positions.stream().filter(m -> isValid(m.move)).collect(Collectors.toList());
+        List<Move> result = new LinkedList();
+        for(Move m : positions) {
+            if (isValid(m.move)) {
+                result.add(m);
+            }
+        }
+        return result;
     }
 
     Boolean isValid(Point p) { //Checks if a certain move is valid
