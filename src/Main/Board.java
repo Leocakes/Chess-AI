@@ -5,8 +5,6 @@ import Main.Pieces.*;
 import java.awt.Point;
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  *
@@ -18,18 +16,8 @@ public class Board implements Cloneable {
 
     public List<Piece> aliveList;
 
-    public Double score;
-
     public Stack<Revert> revertStack;
-
-    public Board copy() {
-        try {
-            return (Board) this.clone();
-        } catch (Exception CloneNotSupported) {
-            return null;
-        }
-    }
-
+    
     public Board(String file) {
         aliveList = new LinkedList<Piece>();
         boardArray = new Piece[8][8];
@@ -148,4 +136,25 @@ public class Board implements Cloneable {
         }
         System.out.println();
     }
+    
+    
+        
+    public void saveGame(Piece[][] boardArray, String filename){
+        File file = new File("data/" + filename + ".chs");
+        FileWriter writer;
+        try{
+            writer = new FileWriter(file, false);  
+            for (int i = 0; i < boardArray.length; i++){
+                for (int j = 0; j < boardArray[i].length; j ++){
+                    writer.write(boardArray[i][j].print());
+                }
+            }
+            System.out.println("Game has been saved under " + filename + ".chs");
+            writer.close();
+        } catch (IOException ex){
+            System.out.println("Something went wrong with the file");
+        }
+    } //not tested
+    
 }
+
