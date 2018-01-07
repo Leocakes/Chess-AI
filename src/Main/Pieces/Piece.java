@@ -21,9 +21,9 @@ public abstract class Piece implements Runnable {
         alive = true;
     }
     
-    Move getMove(Point abs) {
+    public Move getMove(Point abs) {
         int x = abs.x - pos.x;
-        int y = abs.y - pos.y;
+        int y = abs.y - (side==Side.Black?-1:1 * pos.y);
         this.run();
         for (Move m : moves) {
             if (m.move.x == x && m.move.y == y) {

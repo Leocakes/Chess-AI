@@ -3,6 +3,7 @@ package GUI;
 import Main.Board;
 import Main.Move;
 import Main.Pieces.Piece;
+import java.awt.Point;
 import java.util.Scanner;
 
 /**
@@ -21,13 +22,10 @@ public class MainUI {
      public void Game(){
         Boolean running = true;
         Scanner scan = new Scanner(System.in);
-        String input;
-        
+        Board board = null;
         while (running){
             System.out.println("Please provide us a command:");
-            input = scan.next();
-            String [] args = input.split(" ");
-            Board board = null;
+            String [] args = scan.nextLine().split(" ");
             switch (args[0]){
                 case "help": //shows help
                     helpUI();
@@ -37,7 +35,8 @@ public class MainUI {
                     // add call to change difficulty
                     break;
                 case "new": //starts a new game
-                    board = new Board("board.chs");
+                    board = new Board("data/board.chs");
+                    board.Print();
                     break;
                 case "load":
                     board = new Board(args[1]);
@@ -53,10 +52,20 @@ public class MainUI {
                 case "move":
                     if (board != null){
                         String []oldpos = args[1].split("");
-                        Piece currentPiece = board.boardArray[Integer.getInteger(oldpos[0])][getPosition(oldpos[1])];
+                        System.out.println(oldpos[0] + "       " + oldpos[1]);
+                        int x = Integer.parseInt(oldpos[0]) - 1;
+                        int y = getPosition(oldpos[1]);
+                        Piece currentPiece = board.boardArray[x][y];
                         String []newpos = args[2].split("");
                         currentPiece.run();
-                        //todo: call function to activate moves
+                        
+                        Move m = currentPiece.getMove(new Point(Integer.parseInt(newpos[0]) - 1, getPosition(newpos[1])));
+                        if (m != null){
+                            board.doMove(m);
+                        } else {
+                            System.out.println(args[2] + " is not a valid move. Please try again.");
+                        }
+                        
                     } else {
                         System.out.println("Please start a game.");
                     }
@@ -71,6 +80,7 @@ public class MainUI {
                 default:
                     System.out.println("Please provide a proper command.");
                     System.out.println("Use the help command for more information.");
+                    break;
             }
         }
         
@@ -106,7 +116,7 @@ public class MainUI {
         System.out.println("new game                     starts a new game");
         System.out.println("load filename                load a game file");
         System.out.println("save filename                save the current game to a file");
-        System.out.println("move oldposition newpostion  where oldposition is the position of the current piece you want to move and newposition is where the piece will be moved to. Example, move a2 a3");
+        System.out.println("move oldposition newpostion  where oldposition is the position of the current piece you want to move and newposition is where the piece will be moved to. Example, move 2a 3a");
         System.out.println("exit                         exits the game");
     }
     
