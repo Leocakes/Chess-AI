@@ -24,10 +24,19 @@ public class Pawn extends Piece {
 
     public void run() {
         List<Move> possibleMoves = new LinkedList<Move>();
+        try {
         if (this.getPiece(new Point(0, 1)) == null) {
             possibleMoves.add(new Move(this, new Point(0, 1)));
-        } else if (!moved & this.getPiece(new Point(0, 2)) == null) {
+        } 
+        } catch(IndexOutOfBoundsException e) {
+            
+        }
+        try {
+        if (!moved & this.getPiece(new Point(0, 2)) == null) {
             possibleMoves.add(new Move(this, new Point(0, 2)));
+        }
+        } catch(IndexOutOfBoundsException e) {
+            
         }
         
         try {

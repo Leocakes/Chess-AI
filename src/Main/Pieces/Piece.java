@@ -20,8 +20,20 @@ public abstract class Piece implements Runnable {
         this.board = board;
         alive = true;
     }
+    
+    Move getMove(Point abs) {
+        int x = abs.x - pos.x;
+        int y = abs.y - pos.y;
+        this.run();
+        for (Move m : moves) {
+            if (m.move.x == x && m.move.y == y) {
+                return m;
+            }
+        }
+        return null;
+    }
 
-    Piece getPiece(Point p) {
+    Piece getPiece(Point p) { //relative
         int x = 0;
         int y = 0;
         if (this.side.equals(Side.White)) {
