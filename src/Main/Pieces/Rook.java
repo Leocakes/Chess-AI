@@ -11,10 +11,10 @@ import java.util.*;
  * @author brock
  */
 public class Rook extends Piece {
-    public Double points = 20.0;
 
     public Rook(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
+        points = 20.0;
     }
 
     public List<Point> Collect() {

@@ -11,7 +11,6 @@ import java.util.*;
  * @author brock
  */
 public class Pawn extends Piece {
-    public Double points = 10.0;
     Boolean moved;
     Boolean en_passent; //True if it's possible to be taken by en passent
     
@@ -19,6 +18,7 @@ public class Pawn extends Piece {
         super(new Point(x,y),side,board);
         moved=false;
         en_passent = false;
+        points = 10.0;
     }
     
     public void run() {
