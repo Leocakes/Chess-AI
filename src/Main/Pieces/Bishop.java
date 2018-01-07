@@ -14,7 +14,7 @@ public class Bishop extends Piece {
 
     public Bishop(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
-        Double points = 30.0; 
+        points = 30.0; 
     }
 
     public List<Point> Collect() {

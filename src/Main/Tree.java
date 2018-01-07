@@ -15,7 +15,7 @@ public class Tree {
     int depth;
     Move move;
     Double v;
-    public static int maxDepth = 3;
+    public static int maxDepth = 4;
     Boolean max;
 
     public Tree(Board board, Boolean max) {
@@ -26,7 +26,7 @@ public class Tree {
         Double highscore = Double.NEGATIVE_INFINITY;
         Move m = null;
         for(Tree t : children) {
-            if (t.v>highscore) {
+            if (t.v>=highscore) {
                 highscore = t.v;
                 m = t.move;
             }
@@ -42,7 +42,6 @@ public class Tree {
         this.max = max;
         if (move != null) {
             board.doMove(move);
-            board.Print();
         }
         children = new LinkedList();
         this.v = max ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
