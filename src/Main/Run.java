@@ -10,7 +10,7 @@ public class Run {
 
     public Run() {
         Board b = new Board("data/board.chs");
-        Boolean max = true;
+        Boolean max = false;
         while(b.aliveList.size()>1) {
             Tree t = new Tree(b,max);
             b.doMove(t.getNext());
