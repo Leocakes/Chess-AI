@@ -76,6 +76,9 @@ public class Board implements Cloneable {
     }
 
     public void doMove(Move move) {
+        if (move == null) {
+            System.out.println("blep");
+        }
         int mod = move.piece.side == Side.Black ? -1 : 1;
         int origx = move.piece.pos.x;
         int origy = move.piece.pos.y;
@@ -119,6 +122,9 @@ public class Board implements Cloneable {
                 p.run();
                 result.addAll(p.moves);
             }
+        }
+        if (result.isEmpty()) {
+            System.out.println("hmm");
         }
         return result;
     }

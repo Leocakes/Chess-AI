@@ -31,6 +31,9 @@ public class Tree {
                 m = t.move;
             }
         }
+        if (m==null) {
+            System.out.println("rip");
+        }
         return m;
     }
 
