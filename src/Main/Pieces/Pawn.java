@@ -23,42 +23,29 @@ public class Pawn extends Piece {
     public void run() {
         List<Move> possibleMoves = new LinkedList<Move>();
         Boolean moved = true;
-        if ((side==Side.Black && pos.y==6) || (side==Side.White && pos.y==1)) {
+        if ((side == Side.Black && pos.y == 6) || (side == Side.White && pos.y == 1)) {
             moved = false;
         }
-        try {
-        if (this.getPiece(new Point(0, 1)) == null) {
+        Piece curP = this.getPiece(new Point(0, 1));
+        if (curP == null && !(curP instanceof EmptyPiece)) {
             possibleMoves.add(new Move(this, new Point(0, 1)));
-        } 
-        } catch(IndexOutOfBoundsException e) {
-            
         }
-        try {
-            if (!moved & this.getPiece(new Point(0, 2)) == null) {
-                possibleMoves.add(new Move(this, new Point(0, 2)));
-            }
-        } catch (IndexOutOfBoundsException e) {
+        curP = this.getPiece(new Point(0, 2));
+        if (!moved && curP == null && !(curP instanceof EmptyPiece)) {
+            possibleMoves.add(new Move(this, new Point(0, 2)));
+        }
 
-        }
-        
-        try {
-        Piece p = this.getPiece(new Point(1, 1));
-        
-        if (p!=null && p.side != this.side) {
-            possibleMoves.add(new Move(this, new Point(1, 1)));
-        } } catch(IndexOutOfBoundsException e) {
-            
-        }
-        
-        try {
-        Piece p = this.getPiece(new Point(-1,1));
-        
-        if (p != null && p.side != this.side) {
-            possibleMoves.add(new Move(this, new Point(-1, 1)));
-        }
-        } catch(IndexOutOfBoundsException e) {
-            
-        }
+            Piece p = this.getPiece(new Point(1, 1));
+
+            if (p != null && p.side != this.side && !(p instanceof EmptyPiece)) {
+                possibleMoves.add(new Move(this, new Point(1, 1)));
+            }
+
+            p = this.getPiece(new Point(-1, 1));
+            if (p != null && p.side != this.side && !(p instanceof EmptyPiece)) {
+                possibleMoves.add(new Move(this, new Point(-1, 1)));
+            }
+
 
         moved = true;
         moves = possibleMoves;

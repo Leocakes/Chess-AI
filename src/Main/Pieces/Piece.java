@@ -44,7 +44,7 @@ public abstract class Piece implements Runnable {
             y = (-1 * p.y) + this.pos.y;
         }
         if (x < 0 || x > 7 || y < 0 || y > 7) {
-            throw new IndexOutOfBoundsException();
+            return new EmptyPiece();
         }
         return board.boardArray[x][y];
     }
@@ -60,16 +60,15 @@ public abstract class Piece implements Runnable {
     }
 
     Boolean isValid(Point p) { //Checks if a certain move is valid
-        try {
             Piece piece = getPiece(p);
+            if (piece instanceof EmptyPiece) {
+                return false;
+            }
             if (piece == null || piece.side != this.side) {
                 return true;
             } else {
                 return false;
             }
-        } catch (Exception IndexOutOfBoundsException) {
-            return false;
-        }
     }
 
     List<Move> checkLines(List<Point> increment) {
@@ -77,8 +76,11 @@ public abstract class Piece implements Runnable {
         for (Point p : increment) {
             for (int i = 1; i < 8; i++) {
                 Point nextP = new Point((p.x * i), (p.y * i));
-                try {
+
                     Piece piece = getPiece(nextP);
+                    if (piece instanceof EmptyPiece) {
+                        break;
+                    }
                     if (piece==null) {
                         
                         possibleMoves.add(new Move(this, nextP));
@@ -89,9 +91,7 @@ public abstract class Piece implements Runnable {
                     } else {
                         break;
                     }
-                } catch (Exception IndexOutOfBoundsException) {
-                    break;
-                }
+                
 
             }
 
