@@ -53,11 +53,11 @@ public class MainUI {
                 case "move":
                     if (board != null){
                         String []oldpos = args[1].split("");
-                        int y = Integer.parseInt(oldpos[0]) - 1;
-                        int x = getPosition(oldpos[1]);
+                        int y = Integer.parseInt(oldpos[1]) - 1;
+                        int x = getPosition(oldpos[0]);
                         Piece currentPiece = board.boardArray[x][y];
                         String []newpos = args[2].split("");
-                        Move m = currentPiece.getMove(new Point(getPosition(newpos[1]), Integer.parseInt(newpos[0]) - 1));
+                        Move m = currentPiece.getMove(new Point(getPosition(newpos[0]), Integer.parseInt(newpos[1]) - 1));
                         if (m != null){
                             board.doMove(m);
                             board.Print();
