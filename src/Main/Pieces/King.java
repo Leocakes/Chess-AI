@@ -14,7 +14,7 @@ public class King extends Piece {
     
     public King(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
-        points = 10000.0;
+        points = 1000000.0;
     }
 
     public List<Point> Collect() {

@@ -121,7 +121,7 @@ public class Board implements Cloneable {
     }
 
     public void Print() {
-        for (int y = 0; y < 8; y++) {
+        for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x++) {
                 if (boardArray[x][y] == null) {
                     System.out.print(".");

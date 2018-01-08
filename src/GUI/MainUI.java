@@ -3,6 +3,7 @@ package GUI;
 import Main.Board;
 import Main.Move;
 import Main.Pieces.Piece;
+import Main.Tree;
 import java.awt.Point;
 import java.util.Scanner;
 
@@ -52,20 +53,20 @@ public class MainUI {
                 case "move":
                     if (board != null){
                         String []oldpos = args[1].split("");
-                        System.out.println(oldpos[0] + "       " + oldpos[1]);
-                        int x = Integer.parseInt(oldpos[0]) - 1;
-                        int y = getPosition(oldpos[1]);
+                        int y = Integer.parseInt(oldpos[0]) - 1;
+                        int x = getPosition(oldpos[1]);
                         Piece currentPiece = board.boardArray[x][y];
                         String []newpos = args[2].split("");
-                        currentPiece.run();
-                        
-                        Move m = currentPiece.getMove(new Point(Integer.parseInt(newpos[0]) - 1, getPosition(newpos[1])));
+                        Move m = currentPiece.getMove(new Point(getPosition(newpos[1]), Integer.parseInt(newpos[0]) - 1));
                         if (m != null){
                             board.doMove(m);
+                            board.Print();
+                            Tree tree = new Tree(board,false);
+                            board.doMove(tree.getNext());
+                            board.Print();
                         } else {
                             System.out.println(args[2] + " is not a valid move. Please try again.");
                         }
-                        
                     } else {
                         System.out.println("Please start a game.");
                     }
