@@ -56,6 +56,7 @@ public class MainUI {
                         int y = Integer.parseInt(oldpos[1]) - 1;
                         int x = getPosition(oldpos[0]);
                         Piece currentPiece = board.boardArray[x][y];
+                        if (currentPiece!=null) {
                         String []newpos = args[2].split("");
                         Move m = currentPiece.getMove(new Point(getPosition(newpos[0]), Integer.parseInt(newpos[1]) - 1));
                         if (m != null){
@@ -66,6 +67,9 @@ public class MainUI {
                             board.Print();
                         } else {
                             System.out.println(args[2] + " is not a valid move. Please try again.");
+                        }
+                        } else {
+                            System.out.println("Not a piece");
                         }
                     } else {
                         System.out.println("Please start a game.");
@@ -89,7 +93,7 @@ public class MainUI {
     }
      
     public int getPosition(String letter){
-        switch(letter){
+        switch(letter.toLowerCase()){
             case "a":
                 return 0;
             case "b":

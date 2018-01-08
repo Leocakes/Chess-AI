@@ -122,6 +122,7 @@ public class Board implements Cloneable {
 
     public void Print() {
         for (int y = 7; y >= 0; y--) {
+            System.out.print(y+1);
             for (int x = 0; x < 8; x++) {
                 if (boardArray[x][y] == null) {
                     System.out.print(".");
@@ -131,7 +132,7 @@ public class Board implements Cloneable {
             }
             System.out.println();
         }
-        System.out.println();
+        System.out.println(" ABCDEFGH");
     }
     
     
