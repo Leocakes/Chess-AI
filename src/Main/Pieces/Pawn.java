@@ -34,11 +34,11 @@ public class Pawn extends Piece {
             
         }
         try {
-        if (!moved & this.getPiece(new Point(0, 2)) == null) {
-            possibleMoves.add(new Move(this, new Point(0, 2)));
-        }
-        } catch(IndexOutOfBoundsException e) {
-            
+            if (!moved & this.getPiece(new Point(0, 2)) == null) {
+                possibleMoves.add(new Move(this, new Point(0, 2)));
+            }
+        } catch (IndexOutOfBoundsException e) {
+
         }
         
         try {
