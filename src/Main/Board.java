@@ -17,7 +17,7 @@ public class Board implements Cloneable {
     public List<Piece> aliveList;
 
     public Stack<Revert> revertStack;
-    
+
     public Board(String file) {
         aliveList = new LinkedList<Piece>();
         boardArray = new Piece[8][8];
@@ -66,7 +66,7 @@ public class Board implements Cloneable {
     public Double heuristic() { //Calculates a score for this board, higher = better for white    
         Double score = 0.0;
         for (Piece p : aliveList) {
-            if (p.side == Side.White){
+            if (p.side == Side.White) {
                 score += p.points;
             } else {
                 score -= p.points;
@@ -83,6 +83,32 @@ public class Board implements Cloneable {
         int newy = (mod * move.move.y) + origy;
         int delx = move.delete.x + origx;
         int dely = (mod * move.delete.y) + origy;
+        if (boardArray[delx][dely] instanceof King) {
+            Piece store = boardArray[delx][dely];
+            Piece king = boardArray[delx][dely];
+            boardArray[delx][dely] = null;
+            aliveList.remove(store);
+            List<Move> removeList = new LinkedList();
+            king.run();
+            List<Move> kMoves = king.moves;
+            for (Move m : fetchMoves(king.side == Side.White ? Side.Black : Side.White)) {
+                for (Move mK : kMoves) {
+                    if (m.absolutePoint().equals(mK.absolutePoint())) {
+                        removeList.add(mK);
+                    }
+                }
+            }
+            kMoves.removeAll(removeList);
+            boardArray[delx][dely] = store;
+            aliveList.add(store);
+            if (kMoves.isEmpty()) {
+                System.out.println("Checkmate");
+            } else {
+                revertStack.add(null);
+                return;
+            }
+
+        }
         if (boardArray[delx][dely] != null) {
             aliveList.remove(boardArray[delx][dely]);
         }
@@ -99,14 +125,16 @@ public class Board implements Cloneable {
 
     public void revertMove() {
         Revert rev = revertStack.pop();
-        rev.piece.pos = rev.piecePos;
-        if (rev.del != null) {
-            rev.del.pos = rev.delPos;
-            aliveList.add(rev.del);
+        if (rev != null) {
+            rev.piece.pos = rev.piecePos;
+            if (rev.del != null) {
+                rev.del.pos = rev.delPos;
+                aliveList.add(rev.del);
+            }
+            boardArray[rev.piecePos.x][rev.piecePos.y] = rev.piece;
+            boardArray[rev.newPos.x][rev.newPos.y] = null;
+            boardArray[rev.delPos.x][rev.delPos.y] = rev.del;
         }
-        boardArray[rev.piecePos.x][rev.piecePos.y] = rev.piece;
-        boardArray[rev.newPos.x][rev.newPos.y] = null;
-        boardArray[rev.delPos.x][rev.delPos.y] = rev.del;
     }
 
     public List<Move> fetchMoves(Side side) {
@@ -122,7 +150,7 @@ public class Board implements Cloneable {
 
     public void Print() {
         for (int y = 7; y >= 0; y--) {
-            System.out.print(y+1);
+            System.out.print(y + 1);
             for (int x = 0; x < 8; x++) {
                 if (boardArray[x][y] == null) {
                     System.out.print(".");
@@ -134,25 +162,22 @@ public class Board implements Cloneable {
         }
         System.out.println(" ABCDEFGH");
     }
-    
-    
-        
-    public void saveGame(String filename){
+
+    public void saveGame(String filename) {
         File file = new File("data/" + filename + ".chs");
         FileWriter writer;
-        try{
-            writer = new FileWriter(file, false);  
-            for (int i = 0; i < boardArray.length; i++){
-                for (int j = 0; j < boardArray[i].length; j ++){
+        try {
+            writer = new FileWriter(file, false);
+            for (int i = 0; i < boardArray.length; i++) {
+                for (int j = 0; j < boardArray[i].length; j++) {
                     writer.write(boardArray[i][j].print());
                 }
             }
             System.out.println("Game has been saved under " + filename + ".chs");
             writer.close();
-        } catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("Something went wrong with the file");
         }
     } //not tested
-    
-}
 
+}

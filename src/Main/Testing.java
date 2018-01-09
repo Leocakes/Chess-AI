@@ -10,7 +10,7 @@ import java.awt.Point;
 public class Testing {
 
     public Testing() {
-        test2();
+        test3();
     }
 
     public static void main(String[] args) {
@@ -37,5 +37,12 @@ public class Testing {
         b.doMove(t.getNext());
         b.Print();
         
+    }
+    
+    public void test3() {
+        Board b = new Board("data/test4.chs");
+        Tree t = new Tree(b,true);
+        b.doMove(t.getNext());
+        b.Print();
     }
 }

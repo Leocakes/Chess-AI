@@ -27,4 +27,9 @@ public class Move {
     public Move(Piece piece, int x1, int y1, int x2, int y2) {
         this(piece, new Point(x1,x2), new Point(x2,y2));
     }
+    public Point absolutePoint() {
+        int x = piece.pos.x+move.x;
+        int y = piece.pos.y+move.y;
+        return new Point(x,y);
+    }
 }
