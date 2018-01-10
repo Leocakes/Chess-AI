@@ -15,7 +15,7 @@ public class Tree {
     int depth;
     Move move;
     Double v;
-    public static int maxDepth = 1;
+    public static int maxDepth = 4;
     Boolean max;
 
     public Tree(Board board, Boolean max) {

@@ -37,7 +37,7 @@ public class MainUI {
                     // add call to change difficulty
                     break;
                 case "new": //starts a new game
-                    board = new Board("data/test4.chs");
+                    board = new Board("data/board.chs");
                     board.Print();
                     break;
                 case "load":
@@ -58,17 +58,19 @@ public class MainUI {
                         int x = getPosition(oldpos[0]);
                         Piece currentPiece = board.boardArray[x][y];
                         if (currentPiece!=null) {
-                        String []newpos = args[2].split("");
-                        Move m = currentPiece.getMove(new Point(getPosition(newpos[0]), Integer.parseInt(newpos[1]) - 1));
-                        if (m != null){
-                            board.doMove(m);
-                            board.Print();
-                            Tree tree = new Tree(board,false);
-                            board.doMove(tree.getNext());
-                            board.Print();
-                        } else {
-                            System.out.println(args[2] + " is not a valid move. Please try again.");
-                        }
+                            String []newpos = args[2].split("");
+                            Move m = currentPiece.getMove(new Point(getPosition(newpos[0]), Integer.parseInt(newpos[1]) - 1));
+                            if (m != null){
+                                board.doMove(m);
+                                System.out.println();
+                                board.Print();
+                                Tree tree = new Tree(board,false);
+                                board.doMove(tree.getNext());
+                                board.Print();
+                                System.out.println();
+                            } else {
+                                System.out.println(args[2] + " is not a valid move. Please try again.");
+                            }
                         } else {
                             System.out.println("Not a piece");
                         }
@@ -129,7 +131,7 @@ public class MainUI {
         System.out.println("new game                     starts a new game");
         System.out.println("load filename                load a game file");
         System.out.println("save filename                save the current game to a file");
-        System.out.println("move oldposition newpostion  where oldposition is the position of the current piece you want to move and newposition is where the piece will be moved to. Example, move 2a 3a");
+        System.out.println("move oldposition newpostion  where oldposition is the position of the current piece you want to move and newposition is where the piece will be moved to. Example, move a2 a3");
         System.out.println("exit                         exits the game");
     }
     
