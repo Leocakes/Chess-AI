@@ -3,9 +3,10 @@ package GUI;
 import Main.Board;
 import Main.Move;
 import Main.Pieces.Piece;
+import Main.Pieces.Side;
 import Main.Tree;
 import java.awt.Point;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -36,7 +37,7 @@ public class MainUI {
                     // add call to change difficulty
                     break;
                 case "new": //starts a new game
-                    board = new Board("data/board.chs");
+                    board = new Board("data/test4.chs");
                     board.Print();
                     break;
                 case "load":
@@ -70,6 +71,13 @@ public class MainUI {
                         }
                         } else {
                             System.out.println("Not a piece");
+                        }
+                        //Check for Checkmate
+                        List<Move> moves = board.fetchMoves(Side.White);
+                        for(Move m : moves) {
+                            if (m.piece.getPiece(m.move) instanceof Main.Pieces.King) {
+                                board.doMove(m);
+                            }
                         }
                     } else {
                         System.out.println("Please start a game.");

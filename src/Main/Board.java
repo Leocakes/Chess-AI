@@ -83,7 +83,7 @@ public class Board implements Cloneable {
         int newy = (mod * move.move.y) + origy;
         int delx = move.delete.x + origx;
         int dely = (mod * move.delete.y) + origy;
-        if (boardArray[delx][dely] instanceof King) {
+        if (boardArray[delx][dely] instanceof King && boardArray[delx][dely].side!=move.piece.side) {
             Piece store = boardArray[delx][dely];
             Piece king = boardArray[delx][dely];
             boardArray[delx][dely] = null;
@@ -102,7 +102,7 @@ public class Board implements Cloneable {
             boardArray[delx][dely] = store;
             aliveList.add(store);
             if (kMoves.isEmpty()) {
-                System.out.println("Checkmate");
+                
             } else {
                 revertStack.add(null);
                 return;

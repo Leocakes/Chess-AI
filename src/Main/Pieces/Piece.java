@@ -33,7 +33,7 @@ public abstract class Piece implements Runnable {
         return null;
     }
 
-    Piece getPiece(Point p) { //relative
+    public Piece getPiece(Point p) { //relative
         int x = 0;
         int y = 0;
         if (this.side.equals(Side.White)) {

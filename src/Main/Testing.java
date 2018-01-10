@@ -40,7 +40,7 @@ public class Testing {
     }
     
     public void test3() {
-        Board b = new Board("data/test4.chs");
+        Board b = new Board("data/check-mate.chs");
         Tree t = new Tree(b,true);
         b.doMove(t.getNext());
         b.Print();
