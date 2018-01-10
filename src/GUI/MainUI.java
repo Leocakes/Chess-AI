@@ -41,8 +41,8 @@ public class MainUI {
                     board.Print();
                     break;
                 case "load":
-                    board = new Board(args[1]);
-                    // loads 
+                    board = new Board("data/" + args[1]); // loads 
+                    board.Print();
                     break;
                 case "save":
                     if (board != null){
@@ -62,6 +62,7 @@ public class MainUI {
                             Move m = currentPiece.getMove(new Point(getPosition(newpos[0]), Integer.parseInt(newpos[1]) - 1));
                             if (m != null){
                                 board.doMove(m);
+                                System.out.println();
                                 System.out.println();
                                 board.Print();
                                 Tree tree = new Tree(board,false);
