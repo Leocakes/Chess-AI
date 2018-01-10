@@ -97,6 +97,10 @@ public class MainUI {
                     System.out.println("Use the help command for more information.");
                     break;
             }
+            Runtime run = Runtime.getRuntime();
+            run.gc();
+            System.out.print("Mem used:");
+            System.out.println((run.totalMemory() - run.freeMemory())/1000000);
         }
         
     
