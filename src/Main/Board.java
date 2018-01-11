@@ -61,9 +61,9 @@ public class Board implements Cloneable {
             System.out.println("File not found");
         }
         aliveList.removeAll(Collections.singleton(null)); //Removes all nulls from list
-    }
+    } // reads board file and saves it onto the board
 
-    public Double heuristic() { //Calculates a score for this board, higher = better for white    
+    public Double heuristic() { //higher = better for white    
         Double score = 0.0;
         for (Piece p : aliveList) {
             if (p.side == Side.White) {
@@ -73,7 +73,7 @@ public class Board implements Cloneable {
             }
         }
         return score;
-    }
+    } // calculates the heuristic score for the current board configuration
 
     public void doMove(Move move) {
         int mod = move.piece.side == Side.Black ? -1 : 1;
@@ -107,7 +107,6 @@ public class Board implements Cloneable {
                 revertStack.add(null);
                 return;
             }
-
         }
         if (boardArray[delx][dely] != null) {
             aliveList.remove(boardArray[delx][dely]);
@@ -121,7 +120,7 @@ public class Board implements Cloneable {
         boardArray[newx][newy] = boardArray[origx][origy];
         boardArray[origx][origy] = null;
         boardArray[newx][newy].pos = new Point(newx, newy);
-    }
+    } // does the actual move
 
     public void revertMove() {
         Revert rev = revertStack.pop();
@@ -135,7 +134,7 @@ public class Board implements Cloneable {
             boardArray[rev.newPos.x][rev.newPos.y] = null;
             boardArray[rev.delPos.x][rev.delPos.y] = rev.del;
         }
-    }
+    } // reverts the move
 
     public List<Move> fetchMoves(Side side) {
         List<Move> result = new LinkedList();
@@ -146,7 +145,7 @@ public class Board implements Cloneable {
             }
         }
         return result;
-    }
+    } // gets the list of moves
 
     public void Print() {
         for (int y = 7; y >= 0; y--) {
@@ -161,7 +160,7 @@ public class Board implements Cloneable {
             System.out.println();
         }
         System.out.println(" ABCDEFGH");
-    }
+    } // prints the board
 
     public void saveGame(String filename) {
         File file = new File("data/" + filename);
@@ -171,11 +170,10 @@ public class Board implements Cloneable {
             for (int i = 0; i < boardArray.length; i++) {
                 for (int j = 0; j < boardArray[i].length; j++) {
                     if (boardArray[j][i] != null){
-                        System.out.println(boardArray[i][j]);
-                        writer.write(boardArray[j][i].print());
+                        writer.write(boardArray[j][i].print()); // piece
                     } else{
                         writer.write("_");
-                    }
+                    } // if theres no piece on that spot 
                 }
                 writer.write("\n");
             }
@@ -184,6 +182,6 @@ public class Board implements Cloneable {
         } catch (IOException ex) {
             System.out.println("Something went wrong with the file");
         }
-    } //not tested
+    } //saves the game
 
 }
