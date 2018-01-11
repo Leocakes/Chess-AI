@@ -26,39 +26,39 @@ public class Board implements Cloneable {
         try {
             InputStream in = new FileInputStream(file);
             reader = new BufferedReader(new InputStreamReader(in));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8;) {
-                int c = -1;
-                try {
-                    c = reader.read();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (c != '_') {
-                    if (c == 'P' || c == 'p') {
-                        boardArray[x][y] = new Pawn(x, y, c == 'P' ? Side.White : Side.Black, this);
-                    } else if (c == 'Q' || c == 'q') {
-                        boardArray[x][y] = new Queen(x, y, c == 'Q' ? Side.White : Side.Black, this);
-                    } else if (c == 'K' || c == 'k') {
-                        boardArray[x][y] = new King(x, y, c == 'K' ? Side.White : Side.Black, this);
-                    } else if (c == 'R' || c == 'r') {
-                        boardArray[x][y] = new Rook(x, y, c == 'R' ? Side.White : Side.Black, this);
-                    } else if (c == 'B' || c == 'b') {
-                        boardArray[x][y] = new Bishop(x, y, c == 'B' ? Side.White : Side.Black, this);
-                    } else if (c == 'N' || c == 'n') {
-                        boardArray[x][y] = new Knight(x, y, c == 'N' ? Side.White : Side.Black, this);
+            for (int y = 0; y < 8; y++) {
+                for (int x = 0; x < 8;) {
+                    int c = -1;
+                    try {
+                        c = reader.read();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    aliveList.add(boardArray[x][y]);
-                } else if (c == '_') {
-                    x++;
-                }
-                if (x < 8 && boardArray[x][y] != null) {
-                    x++;
+                    if (c != '_') {
+                        if (c == 'P' || c == 'p') {
+                            boardArray[x][y] = new Pawn(x, y, c == 'P' ? Side.White : Side.Black, this);
+                        } else if (c == 'Q' || c == 'q') {
+                            boardArray[x][y] = new Queen(x, y, c == 'Q' ? Side.White : Side.Black, this);
+                        } else if (c == 'K' || c == 'k') {
+                            boardArray[x][y] = new King(x, y, c == 'K' ? Side.White : Side.Black, this);
+                        } else if (c == 'R' || c == 'r') {
+                            boardArray[x][y] = new Rook(x, y, c == 'R' ? Side.White : Side.Black, this);
+                        } else if (c == 'B' || c == 'b') {
+                            boardArray[x][y] = new Bishop(x, y, c == 'B' ? Side.White : Side.Black, this);
+                        } else if (c == 'N' || c == 'n') {
+                            boardArray[x][y] = new Knight(x, y, c == 'N' ? Side.White : Side.Black, this);
+                        }
+                        aliveList.add(boardArray[x][y]);
+                    } else if (c == '_') {
+                        x++;
+                    }
+                    if (x < 8 && boardArray[x][y] != null) {
+                        x++;
+                    }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("File not found.");
         }
         aliveList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
@@ -164,16 +164,22 @@ public class Board implements Cloneable {
     }
 
     public void saveGame(String filename) {
-        File file = new File("data/" + filename + ".chs");
+        File file = new File("data/" + filename);
         FileWriter writer;
         try {
             writer = new FileWriter(file, false);
             for (int i = 0; i < boardArray.length; i++) {
                 for (int j = 0; j < boardArray[i].length; j++) {
-                    writer.write(boardArray[i][j].print());
+                    if (boardArray[i][j] != null){
+                        System.out.println(boardArray[i][j]);
+//                        writer.write(boardArray[i][j].print());
+                    } else{
+                        writer.write("_");
+                    }
                 }
+                writer.write("\n");
             }
-            System.out.println("Game has been saved under " + filename + ".chs");
+            System.out.println("Game has been saved under " + filename);
             writer.close();
         } catch (IOException ex) {
             System.out.println("Something went wrong with the file");
