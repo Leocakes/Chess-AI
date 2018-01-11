@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  *
- * @author leocakes
+ * @author Dana Darmohray & Brock Jones
  */
 public class MainUI {
 
