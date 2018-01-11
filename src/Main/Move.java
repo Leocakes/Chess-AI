@@ -5,8 +5,10 @@ import java.awt.Point;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
+
+//Contains the information to make a move
 public class Move {
     public Piece piece;
     public Point move; //relative position

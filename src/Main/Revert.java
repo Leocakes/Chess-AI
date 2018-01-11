@@ -5,8 +5,10 @@ import java.awt.Point;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
+
+//Stores all the info necessary to revert a move
 public class Revert {
     public Point piecePos;
     public Piece piece;

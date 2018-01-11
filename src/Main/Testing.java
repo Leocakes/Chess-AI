@@ -5,7 +5,7 @@ import java.awt.Point;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
 public class Testing {
 

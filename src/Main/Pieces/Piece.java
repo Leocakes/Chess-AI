@@ -33,7 +33,7 @@ public abstract class Piece implements Runnable {
         return null;
     }
 
-    public Piece getPiece(Point p) { //relative
+    public Piece getPiece(Point p) { //relative position
         int x = 0;
         int y = 0;
         if (this.side.equals(Side.White)) {
@@ -49,7 +49,7 @@ public abstract class Piece implements Runnable {
         return board.boardArray[x][y];
     }
     
-    List<Move> filterPositions(List<Move> positions) {
+    List<Move> filterPositions(List<Move> positions) { //Runs isValid through a list of points
         List<Move> result = new LinkedList();
         for(Move m : positions) {
             if (isValid(m.move)) {
@@ -59,7 +59,7 @@ public abstract class Piece implements Runnable {
         return result;
     }
 
-    Boolean isValid(Point p) { //Checks if a certain move is valid
+    Boolean isValid(Point p) { //Only checks if there's anything in the way
             Piece piece = getPiece(p);
             if (piece instanceof EmptyPiece) {
                 return false;
@@ -71,7 +71,7 @@ public abstract class Piece implements Runnable {
             }
     }
 
-    List<Move> checkLines(List<Point> increment) {
+    List<Move> checkLines(List<Point> increment) { //Useful for Queen, Rook and other pieces that go on until they run into something
         List<Move> possibleMoves = new LinkedList<Move>();
         for (Point p : increment) {
             for (int i = 1; i < 8; i++) {
@@ -99,7 +99,7 @@ public abstract class Piece implements Runnable {
         return possibleMoves;
     }
 
-    abstract public String print();
+    abstract public String print(); //Returns the character to represent the piece
 
-    abstract public void run();
+    abstract public void run(); //Stores all possible moves in this.moves
 }

@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
 public class Bishop extends Piece {
     public char letter;

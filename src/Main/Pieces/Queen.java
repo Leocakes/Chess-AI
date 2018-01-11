@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
 public class Queen extends Piece {
 

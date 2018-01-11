@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
 public class Rook extends Piece {
 

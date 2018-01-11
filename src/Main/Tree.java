@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  *
- * @author brock
+ * @author brock & dana
  */
 public class Tree {
 
@@ -54,9 +54,8 @@ public class Tree {
         } else {
             for (Move m : board.fetchMoves(max ? Side.White : Side.Black)) {
                 Tree t = new Tree(board, m, depth+1, max?v:alpha, !max?v:beta,!max);
-                //Tree t = new Tree(board, m, depth+1, alpha, beta,!max);
                 children.add(t);
-                if (max & v < t.v) {
+                if (max & v < t.v) { //Check if we can skip children
                     this.v = t.v;
                 } else if (!max & v > t.v) {
                     this.v = t.v;
