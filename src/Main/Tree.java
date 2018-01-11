@@ -15,11 +15,12 @@ public class Tree {
     int depth;
     Move move;
     Double v;
-    public static int maxDepth = 4;
+    public int maxDepth;
     Boolean max;
 
-    public Tree(Board board, Boolean max) {
+    public Tree(Board board, Boolean max, int depth) {
         this(board, null, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,max);
+        maxDepth = depth;
     }
     
     public Move getNext() {
