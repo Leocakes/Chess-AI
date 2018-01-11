@@ -105,12 +105,12 @@ public class MainUI {
                     if (scan.next().equals("y")){
                         System.out.println("Thanks for playing!");
                         running = false;
-                    }
+                    } // exiting
                     break;
                 default:
                     System.out.println("Please provide a proper command.");
                     System.out.println("Use the help command for more information.");
-                    break;
+                    break; //if bad command
             }
             Runtime run = Runtime.getRuntime();
             run.gc();
