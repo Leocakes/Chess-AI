@@ -170,9 +170,9 @@ public class Board implements Cloneable {
             writer = new FileWriter(file, false);
             for (int i = 0; i < boardArray.length; i++) {
                 for (int j = 0; j < boardArray[i].length; j++) {
-                    if (boardArray[i][j] != null){
+                    if (boardArray[j][i] != null){
                         System.out.println(boardArray[i][j]);
-                        writer.write(boardArray[i][j].print());
+                        writer.write(boardArray[j][i].print());
                     } else{
                         writer.write("_");
                     }
