@@ -33,7 +33,7 @@ public class Testing {
     
     public void test2() {
         Board b = new Board("data/test3.chs");
-        Tree t = new Tree(b,true);
+        Tree t = new Tree(b,true,4);
         b.doMove(t.getNext());
         b.Print();
         
@@ -41,7 +41,7 @@ public class Testing {
     
     public void test3() {
         Board b = new Board("data/check-mate.chs");
-        Tree t = new Tree(b,false);
+        Tree t = new Tree(b,false,4);
         b.doMove(t.getNext());
         b.Print();
     }
