@@ -58,7 +58,7 @@ public class Board implements Cloneable {
                 }
             }
         } catch (Exception e) {
-            System.out.println("File not found.");
+            System.out.println("File not found");
         }
         aliveList.removeAll(Collections.singleton(null)); //Removes all nulls from list
     }
@@ -172,7 +172,7 @@ public class Board implements Cloneable {
                 for (int j = 0; j < boardArray[i].length; j++) {
                     if (boardArray[i][j] != null){
                         System.out.println(boardArray[i][j]);
-//                        writer.write(boardArray[i][j].print());
+                        writer.write(boardArray[i][j].print());
                     } else{
                         writer.write("_");
                     }
