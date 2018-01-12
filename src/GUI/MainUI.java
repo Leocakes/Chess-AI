@@ -125,8 +125,6 @@ public class MainUI {
             }
             Runtime run = Runtime.getRuntime();
             run.gc();
-            System.out.print("Mem used:");
-            System.out.println((run.totalMemory() - run.freeMemory()) / 1000000);
         }
     } // play of the game
 
