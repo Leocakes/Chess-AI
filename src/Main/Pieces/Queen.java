@@ -13,7 +13,7 @@ public class Queen extends Piece {
 
     public Queen(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
-        points = 900.0;
+        points = 1000.0;
     }
 
     public List<Point> Collect() {

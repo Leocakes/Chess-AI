@@ -14,7 +14,7 @@ public class Knight extends Piece {
 
     public Knight(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
-        points = 30.0;
+        points = 50.0;
     }
 
     public List<Point> Collect() {

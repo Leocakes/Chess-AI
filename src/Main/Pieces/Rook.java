@@ -14,7 +14,7 @@ public class Rook extends Piece {
 
     public Rook(int x, int y, Side side, Board board) {
         super(new Point(x, y), side, board);
-        points = 20.0;
+        points = 30.0;
     }
 
     public List<Point> Collect() {
