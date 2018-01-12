@@ -14,34 +14,34 @@ import java.util.*;
  */
 public class MainUI {
 
-    public MainUI(){
+    public MainUI() {
         System.out.println("Welcome to the game of Chess!");
         System.out.println("Play aganist an ai. GLHF :)");
         helpUI();
         Game();
     } //starts the user interface
-    
-     public void Game(){
+
+    public void Game() {
         int depth = 4;
         Boolean running = true;
         Scanner scan = new Scanner(System.in);
         Board board = null;
-        while (running){
+        while (running) {
             System.out.println("Please provide us a command:");
-            String [] args = scan.nextLine().split(" ");
-            switch (args[0]){
+            String[] args = scan.nextLine().split(" ");
+            switch (args[0]) {
                 case "help": //shows help
                     helpUI();
                     break;
                 case "difficulty": //changes difficulty
-                    try{
+                    try {
                         int difficulty = Integer.parseInt(args[1]);
-                        if (difficulty < 6 && difficulty > 2){
+                        if (difficulty < 6 && difficulty > 2) {
                             depth = difficulty;
                         } else {
                             System.out.println("Please provide a number from 3-5.");
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Please provide an integer for the difficulty.");
                     }
                     break;
@@ -55,28 +55,28 @@ public class MainUI {
                     board.Print();
                     break;
                 case "save":
-                    if (board != null){
+                    if (board != null) {
                         board.saveGame(args[1]);
                     } else {
                         System.out.println("Cannot save a non-existing game.");
                     }
                     break;
                 case "move":
-                    if (board != null){
-                        try{
-                            String []oldpos = args[1].split("");
+                    if (board != null) {
+                        try {
+                            String[] oldpos = args[1].split("");
                             int y = Integer.parseInt(oldpos[1]) - 1;
                             int x = getPosition(oldpos[0]);
                             Piece currentPiece = board.boardArray[x][y];
-                            if (currentPiece!=null) {
-                                String []newpos = args[2].split("");
+                            if (currentPiece != null) {
+                                String[] newpos = args[2].split("");
                                 Move m = currentPiece.getMove(new Point(getPosition(newpos[0]), Integer.parseInt(newpos[1]) - 1));
-                                if (m != null){
+                                if (m != null) {
                                     board.doMove(m);
                                     System.out.println();
                                     board.Print();
                                     System.out.println();
-                                    Tree tree = new Tree(board,false,depth);
+                                    Tree tree = new Tree(board, false);
                                     board.doMove(tree.getNext());
                                     board.Print();
                                     System.out.println();
@@ -88,13 +88,25 @@ public class MainUI {
                             }
                             //Check for Checkmate
                             List<Move> moves = board.fetchMoves(Side.White);
-                            for(Move m : moves) {
+                            for (Move m : moves) {
                                 if (m.piece.getPiece(m.move) instanceof Main.Pieces.King) {
                                     board.doMove(m);
                                 }
                             }
-                        } catch (Exception e){
+                            //Check if anyone has won
+                            int kingCount = 0;
+                            for (Piece p : board.aliveList) {
+                                if(p instanceof Main.Pieces.King) {
+                                    kingCount++;
+                                }
+                            }
+                            if (kingCount<2) {
+                                System.out.println("CheckMate!");
+                                System.exit(0);
+                            }
+                        } catch (Exception e) {
                             System.out.println("Please provide proper parameters. \nExample, move a2 a3");
+                            e.printStackTrace();
                         }
                     } else {
                         System.out.println("Please start a game.");
@@ -102,7 +114,7 @@ public class MainUI {
                     break;
                 case "exit":
                     System.out.println("Are you sure you wish to exit? (y for yes)");
-                    if (scan.next().equals("y")){
+                    if (scan.next().equals("y")) {
                         System.out.println("Thanks for playing!");
                         running = false;
                     } // exiting
@@ -115,12 +127,12 @@ public class MainUI {
             Runtime run = Runtime.getRuntime();
             run.gc();
             System.out.print("Mem used:");
-            System.out.println((run.totalMemory() - run.freeMemory())/1000000);
+            System.out.println((run.totalMemory() - run.freeMemory()) / 1000000);
         }
     } // play of the game
-     
-    public int getPosition(String letter){
-        switch(letter.toLowerCase()){
+
+    public int getPosition(String letter) {
+        switch (letter.toLowerCase()) {
             case "a":
                 return 0;
             case "b":
@@ -141,8 +153,8 @@ public class MainUI {
         System.out.println("Please provide a proper position.");
         return 10;
     } // converter
-    
-    public void helpUI(){
+
+    public void helpUI() {
         System.out.println("help                         shows the help page");
         System.out.println("difficulty x                 set the difficulty, where x is the difficulty level (3-5), default 4");
         System.out.println("new game                     starts a new game");
@@ -151,5 +163,5 @@ public class MainUI {
         System.out.println("move oldposition newpostion  where oldposition is the position of the current piece you want to move and newposition is where the piece will be moved to. Example, move a2 a3");
         System.out.println("exit                         exits the game");
     } // help 
-    
+
 }
