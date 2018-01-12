@@ -106,7 +106,6 @@ public class MainUI {
                             }
                         } catch (Exception e) {
                             System.out.println("Please provide proper parameters. \nExample, move a2 a3");
-                            e.printStackTrace();
                         }
                     } else {
                         System.out.println("Please start a game.");
