@@ -37,7 +37,7 @@ public class MainUI {
                     try {
                         int difficulty = Integer.parseInt(args[1]);
                         if (difficulty < 6 && difficulty > 2) {
-                            depth = difficulty;
+                            Tree.maxDepth = difficulty;
                         } else {
                             System.out.println("Please provide a number from 3-5.");
                         }
